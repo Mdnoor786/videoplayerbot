@@ -16,17 +16,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
 """
 
-from config import admins
-from typing import Dict, List
+from assets.admins import admins, get, set
 
-admins: Dict[int, List[int]] = {}
-
-
-def set(chat_id: int, admins_: List[int]):
-    admins[chat_id] = admins_
-
-
-def get(chat_id: int) -> List[int]:
-    if chat_id in admins:
-        return admins[chat_id]
-    return []
+__all__ = ["admins", "get", "set"]
