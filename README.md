@@ -1,4 +1,4 @@
-# Telegram Video Player Bot [![Mentioned in Awesome](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/tgcalls/awesome-tgcalls)
+# Telegram Video Player Bot 
 ![GitHub Repo stars](https://img.shields.io/github/stars/MdNoor786/VideoPlayerBot?color=blue&style=flat)
 ![GitHub forks](https://img.shields.io/github/forks/MdNoor786/VideoPlayerBot?color=green&style=flat)
 ![GitHub issues](https://img.shields.io/github/issues/MdNoor786/VideoPlayerBot)
