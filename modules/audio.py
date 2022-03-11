@@ -18,22 +18,22 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 @authorized_users_only
 async def play(client, m: Message):
     media = m.reply_to_message
-    if not media and not ' ' in m.text:
-        await m.reply_text(
-            "💁🏻‍♂️ Do you want to search for a YouTube video?",
-            reply_markup=InlineKeyboardMarkup(
-            [
+    if not media and ' ' not in m.text:
+            await m.reply_text(
+                "💁🏻‍♂️ Do you want to search for a YouTube video?",
+                reply_markup=InlineKeyboardMarkup(
                 [
-                    InlineKeyboardButton(
-                        "✅ Yes", switch_inline_query_current_chat=""
-                    ),
-                    InlineKeyboardButton(
-                        "No ❌", callback_data="close"
-                    )
+                    [
+                        InlineKeyboardButton(
+                            "✅ Yes", switch_inline_query_current_chat=""
+                        ),
+                        InlineKeyboardButton(
+                            "No ❌", callback_data="close"
+                        )
+                    ]
                 ]
-            ]
+            )
         )
-    )
 
     elif ' ' in m.text:
         text = m.text.split(' ', 1)
@@ -110,7 +110,11 @@ async def play(client, m: Message):
             await group_call.join(chat_id)
             await group_call.start_audio(audio, repeat=False)
             AUDIO_CALL[chat_id] = group_call
-            await msg.edit(f"▶️ **Started [Audio Streaming](https://t.meLionXUpdates) !**", disable_web_page_preview=True)
+            await msg.edit(
+                "▶️ **Started [Audio Streaming](https://t.meLionXUpdates) !**",
+                disable_web_page_preview=True,
+            )
+
         except Exception as e:
             await msg.edit(f"❌ **An Error Occoured !** \n\nError: `{e}`")
 
