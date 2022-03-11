@@ -47,22 +47,22 @@ group_call = GroupCallFactory(User, GroupCallFactory.MTPROTO_CLIENT_TYPE.PYROGRA
 @authorized_users_only
 async def stream(client, m: Message):
     media = m.reply_to_message
-    if not media and not ' ' in m.text:
-        await m.reply_text(
-            "💁🏻‍♂️ Do you want to search for a YouTube video?",
-            reply_markup=InlineKeyboardMarkup(
-            [
+    if not media and ' ' not in m.text:
+            await m.reply_text(
+                "💁🏻‍♂️ Do you want to search for a YouTube video?",
+                reply_markup=InlineKeyboardMarkup(
                 [
-                    InlineKeyboardButton(
-                        "✅ Yes", switch_inline_query_current_chat=""
-                    ),
-                    InlineKeyboardButton(
-                        "No ❌", callback_data="close"
-                    )
+                    [
+                        InlineKeyboardButton(
+                            "✅ Yes", switch_inline_query_current_chat=""
+                        ),
+                        InlineKeyboardButton(
+                            "No ❌", callback_data="close"
+                        )
+                    ]
                 ]
-            ]
+            )
         )
-    )
 
     elif ' ' in m.text:
         text = m.text.split(' ', 1)
@@ -139,7 +139,11 @@ async def stream(client, m: Message):
             await group_call.join(chat_id)
             await group_call.start_video(video, with_audio=True, repeat=False)
             VIDEO_CALL[chat_id] = group_call
-            await msg.edit(f"▶️ **Started [Video Streaming](https://t.meLionXUpdates) !**", disable_web_page_preview=True)
+            await msg.edit(
+                "▶️ **Started [Video Streaming](https://t.meLionXUpdates) !**",
+                disable_web_page_preview=True,
+            )
+
         except Exception as e:
             await msg.edit(f"❌ **An Error Occoured !** \n\nError: `{e}`")
 
@@ -207,10 +211,10 @@ async def endstream(client, m: Message):
 async def audio_ended_handler(_, __):
     await sleep(3)
     await group_call.stop()
-    print(f"[INFO] - AUDIO_CALL ENDED !")
+    print("[INFO] - AUDIO_CALL ENDED !")
 
 @group_call.on_video_playout_ended
 async def video_ended_handler(_, __):
     await sleep(3)
     await group_call.stop()
-    print(f"[INFO] - VIDEO_CALL ENDED !")
+    print("[INFO] - VIDEO_CALL ENDED !")
